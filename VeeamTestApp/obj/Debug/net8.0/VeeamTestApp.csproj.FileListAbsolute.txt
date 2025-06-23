@@ -1,0 +1,14 @@
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\bin\Debug\net8.0\VeeamTestApp.exe
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\bin\Debug\net8.0\VeeamTestApp.deps.json
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\bin\Debug\net8.0\VeeamTestApp.runtimeconfig.json
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\bin\Debug\net8.0\VeeamTestApp.dll
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\bin\Debug\net8.0\VeeamTestApp.pdb
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.AssemblyInfoInputs.cache
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.AssemblyInfo.cs
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.csproj.CoreCompileInputs.cache
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.dll
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\refint\VeeamTestApp.dll
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.pdb
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\VeeamTestApp.genruntimeconfig.cache
+C:\Users\gonch\RiderProjects\VeeamTestApp\VeeamTestApp\obj\Debug\net8.0\ref\VeeamTestApp.dll
