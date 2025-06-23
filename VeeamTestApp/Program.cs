@@ -27,6 +27,14 @@ namespace VeeamTestApp
             isStopRequested = false;
         }
 
+        private void PrintWithColor(string str, ConsoleColor consoleColor = ConsoleColor.White, string end = "\n")
+        {
+            Console.ForegroundColor = consoleColor;
+            Console.Write(str + end);
+            Console.ResetColor();
+
+        }
+
         protected bool CanReadDirectory(string folderPath)
         {
             return CheckAccess(folderPath, FileSystemRights.Read | FileSystemRights.ListDirectory);
@@ -80,19 +88,20 @@ namespace VeeamTestApp
                 folderPath = Console.ReadLine();
                 if (!Directory.Exists(folderPath))
                 {
-                    Console.WriteLine("This folder does not exist.");
+                    PrintWithColor("This folder does not exist.", ConsoleColor.Red);
                     folderPath = "";
                     continue;
                 }
                 if (!CanReadDirectory(folderPath))
                 {
-                    Console.WriteLine("Cannot read from this directory.");
+                    
+                    PrintWithColor("Cannot read from this directory.", ConsoleColor.Red);
                     folderPath = "";
                     continue;
                 }
                 if (folderPath.Equals(targetFolder))
                 {
-                    Console.WriteLine("Source folder cannot be the same as a target folder.");
+                    PrintWithColor("Source folder cannot be the same as a target folder.", ConsoleColor.Red);
                     folderPath = "";
                     continue;
                 }
@@ -112,19 +121,19 @@ namespace VeeamTestApp
                 folderPath = Console.ReadLine();
                 if (!Directory.Exists(folderPath))
                 {
-                    Console.WriteLine("This folder does not exist.");
+                    PrintWithColor("This folder does not exist.", ConsoleColor.Red);
                     folderPath = "";
                     continue;
                 }
                 if (!CanModifyDirectory(folderPath))
                 {
-                    Console.WriteLine("Cannot modify this directory.");
+                    PrintWithColor("Cannot modify this directory.", ConsoleColor.Red);
                     folderPath = "";
                     continue;
                 }
                 if (folderPath.Equals(sourceFolder))
                 {
-                    Console.WriteLine("Target folder cannot be the same as a source folder.");
+                    PrintWithColor("Target folder cannot be the same as a source folder.", ConsoleColor.Red);
                     folderPath = "";
                     continue;
                 }
@@ -149,13 +158,13 @@ namespace VeeamTestApp
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Invalid input type.");
+                    PrintWithColor("Invalid input type.", ConsoleColor.Red);
                     continue;
                 }
 
                 if (syncInterval < MinimalSyncSeconds)
                 {
-                    Console.WriteLine("Interval cannot be smaller than " + MinimalSyncSeconds + " seconds.");
+                    PrintWithColor("Interval cannot be smaller than " + MinimalSyncSeconds + " seconds.", ConsoleColor.Red);
                     continue;
                 }
             }
@@ -177,19 +186,19 @@ namespace VeeamTestApp
                 
                 if (!Directory.Exists(folderPath))
                 {
-                    Console.WriteLine("This folder does not exist.");
+                    PrintWithColor("This folder does not exist.", ConsoleColor.Red);
                     filePath = "";
                     continue;
                 }
                 if (!CanModifyDirectory(folderPath))
                 {
-                    Console.WriteLine("Cannot modify this directory.");
+                    PrintWithColor("Cannot modify this directory.", ConsoleColor.Red);
                     filePath = "";
                     continue;
                 }
                 if (folderPath.Equals(sourceFolder))
                 {
-                    Console.WriteLine("Log folder cannot be the same as a source folder.");
+                    PrintWithColor("Log folder cannot be the same as a source folder.", ConsoleColor.Red);
                     filePath = "";
                     continue;
                 }
@@ -207,12 +216,12 @@ namespace VeeamTestApp
             }
         }
 
-        public void Log(string log)
+        public void Log(string log, ConsoleColor consoleColor = ConsoleColor.White)
         {
             File.AppendAllText(logFilepath, log + Environment.NewLine);
             lock (consoleLock)
             {
-                Console.WriteLine(log);
+                PrintWithColor(log, consoleColor);
                 Console.Out.Flush();
             }
         }
@@ -262,7 +271,7 @@ namespace VeeamTestApp
                         if (!IsEnoughSpaceToCopy(sourceFile, targetFolder))
                         {
                             Log(DateTime.Now.ToString(GetTimestamp()) + 
-                                $" ERROR: Not enough disk space to copy {fileName}. Skipping.");
+                                $" ERROR: Not enough disk space to copy {fileName}. Skipping.", ConsoleColor.Red);
                             continue;
                         }
 
@@ -274,7 +283,7 @@ namespace VeeamTestApp
                         }
                         catch (Exception ex)
                         {
-                            Log(DateTime.Now.ToString(GetTimestamp()) + $" ERROR copying {fileName}: {ex.Message}");
+                            Log(DateTime.Now.ToString(GetTimestamp()) + $" ERROR copying {fileName}: {ex.Message}", ConsoleColor.Red);
                         }
                     }
                 }
@@ -294,7 +303,7 @@ namespace VeeamTestApp
                     }
                     catch (Exception ex)
                     {
-                        Log(DateTime.Now.ToString(GetTimestamp()) + $" ERROR deleting {fileName}: {ex.Message}");
+                        Log(DateTime.Now.ToString(GetTimestamp()) + $" ERROR deleting {fileName}: {ex.Message}", ConsoleColor.Red);
                     }
                 }
             }
@@ -326,7 +335,7 @@ namespace VeeamTestApp
                         }
                         catch (Exception ex)
                         {
-                            Log(DateTime.Now.ToString(GetTimestamp()) + $" ERROR deleting folder {dirName}: {ex.Message}");
+                            Log(DateTime.Now.ToString(GetTimestamp()) + $" ERROR deleting folder {dirName}: {ex.Message}", ConsoleColor.Red);
                         }
                     }
                 }
@@ -344,7 +353,7 @@ namespace VeeamTestApp
                 }
                 catch (Exception ex)
                 {
-                    Log($"Error: {ex.Message}");
+                    Log($"Error: {ex.Message}", ConsoleColor.Red);
                 }
 
                 try
@@ -369,7 +378,7 @@ namespace VeeamTestApp
                 GetLogFilePath();
 
                 Log("Starting synchronization of " + targetFolder + " with " + sourceFolder +
-                    " every " + syncIntervalSec + " seconds...");
+                    " every " + syncIntervalSec + " seconds...", ConsoleColor.Green);
                 Console.WriteLine("Log file: " + logFilepath);
                 Console.WriteLine("Press \"ctrl + s\" to stop the program.");
                 
@@ -388,7 +397,7 @@ namespace VeeamTestApp
 
                 syncTask.Wait(); // Wait for task to finish gracefully
 
-                Log("Synchronisation stopped.");
+                Log("Synchronisation stopped.", ConsoleColor.Yellow);
             }
         }
     }
